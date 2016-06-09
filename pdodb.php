@@ -10,6 +10,14 @@
         "PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION"));
       //$db -> setAttribute("PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION");
       
+      try
+      {
+        
+      }
+      catch(PDOException $e)
+      {
+        echo "An error occurred!";
+      }
     ?>
   </body>
 </html>
