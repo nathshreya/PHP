@@ -42,7 +42,11 @@
 				}
 				else
 				{
-					$mail = test_data($_POST["mail"]);					
+					$mail = test_data($_POST["mail"]);
+					if(!filter_var($mail, FILTER_VALIDATE_EMAIL))
+					{
+						$mail_err = "Invalid email address!";	
+					}
 				}
 				
 				if(empty($_POST["num"]))
@@ -63,25 +67,18 @@
 			
 			function no_data($data)
 			{
-				if(empty($_POST[$data]))
-				{
-					$data = "";
-				}
-				else
-				{
-					$data = test_data($_POST[$data]);
-				}
+				$data = test_data($_POST[$data]);
 			}
 		?>	
 			
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-			Name: <input type= "text" name="name"><span class="error"> * <?php echo $name_err;?></span><br /><br />
-			Email ID: <input type= "text" name="mail"><span class="error"> * <?php echo $mail_err;?></span><br /><br />
-			Contact Number: <input type= "number" name="num"><span class="error"> * <?php echo $num_err;?></span><br /><br />
-			Comment: <input type= "text" name="comment"><br /><br />
+			Name: <input type="text" name="name" value="<?php echo $name;?>"><span class="error"> * <?php echo $name_err;?></span><br /><br />
+			Email ID: <input type="text" name="mail" value="<?php echo $mail;?>"><span class="error"> * <?php echo $mail_err;?></span><br /><br />
+			Contact Number: <input type="number" name="num" value="<?php echo $num;?>"><span class="error"> * <?php echo $num_err;?></span><br /><br />
+			Comment: <textarea name="comment" rows="5" cols="40"><?php echo $comment;?></textarea><br /><br />
 			Gender: 
-			Female <input type= "radio" name="gender" value="female">
-			Male <input type= "radio" name="gender" value="male">
+			Female <input type="radio" name="gender" <?php if (isset($gender) && $gender=="female") echo "checked";?> value="female">
+			Male <input type="radio" name="gender" <?php if (isset($gender) && $gender=="male") echo "checked";?> value="male">
 			<br /><br /><br /><br />
 			
 			<input type="submit">
